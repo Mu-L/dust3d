@@ -855,7 +855,7 @@ void TurnaroundImageEditorDialog::initializeUi()
 
     m_flipSideButton = new QPushButton(Theme::awesome()->icon(fa::arrowsh), QString(), this);
     Theme::initIconButton(m_flipSideButton);
-    m_flipSideButton->setToolTip(tr("Flip Side"));
+    m_flipSideButton->setToolTip(tr("Flip Side — profile should face left"));
 
     m_swapButton = new QPushButton(Theme::awesome()->icon(fa::exchange), QString(), this);
     Theme::initIconButton(m_swapButton);
@@ -891,7 +891,7 @@ void TurnaroundImageEditorDialog::initializeUi()
     frontLayout->addLayout(frontButtonLayout);
 
     QVBoxLayout* sideLayout = new QVBoxLayout;
-    sideLayout->addWidget(new QLabel(tr("Side View"), this));
+    sideLayout->addWidget(new QLabel(tr("Side View (must faces left)"), this));
     sideLayout->addWidget(m_sideCropWidget, 1);
     QHBoxLayout* sideButtonLayout = new QHBoxLayout;
     sideButtonLayout->addStretch();

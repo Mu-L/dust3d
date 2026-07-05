@@ -521,6 +521,7 @@ ComponentPropertyWidget::ComponentPropertyWidget(Document* document,
             QCheckBox* loopBackCloseStateBox = new QCheckBox();
             Theme::initCheckbox(loopBackCloseStateBox);
             loopBackCloseStateBox->setText(tr("Back Closed"));
+            loopBackCloseStateBox->setToolTip(tr("Requires side profile facing left for correct cap normal"));
             loopBackCloseStateBox->setChecked(lastBackClosed());
 
             FloatNumberWidget* depthRatioWidget = new FloatNumberWidget;
