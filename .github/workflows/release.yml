@@ -109,11 +109,13 @@ jobs:
           target: 'desktop'
           arch: 'win64_msvc2019_64'
           archives: 'qttools qtsvg qtimageformats qtbase qtmultimedia opengl32sw'
+      - name: Install jom
+        run: choco install jom --yes --no-progress
       - name: Build application
         run: |
           cd $env:GITHUB_WORKSPACE/application
           qmake -spec win32-msvc
-          nmake -f Makefile.Release
+          jom -f Makefile.Release -j $env:NUMBER_OF_PROCESSORS
       - name: Set environment variable
         run: |
           set PATH="%PATH%;C:\Program Files\7-Zip"
