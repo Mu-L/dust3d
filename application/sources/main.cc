@@ -31,6 +31,11 @@ static auto checkToSafelyExit = []() {
 
 int main(int argc, char* argv[])
 {
+#if defined(Q_OS_WIN) && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
+
 #if !defined(Q_OS_WASM)
     QSurfaceFormat format = QSurfaceFormat::defaultFormat();
     format.setProfile(QSurfaceFormat::OpenGLContextProfile::CoreProfile);

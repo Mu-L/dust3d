@@ -162,6 +162,26 @@ jobs:
         with:
           name: dust3d-${{ github.ref_name }}-windows-2022.png
           path: dust3d-${{ github.ref_name }}-windows-2022.png
+      - name: Run application and capture Windows 1080p 200% screenshot
+        run: |
+          Set-DisplayResolution -Width 1920 -Height 1080 -Force
+          cd dust3d-${{ github.ref_name }}
+          $env:QT_OPENGL = 'software'
+          $env:QT_SCALE_FACTOR = '2'
+          Start-Process -FilePath .\dust3d.exe
+          Start-Sleep -Seconds 12
+          Add-Type -AssemblyName System.Windows.Forms
+          $bitmap = [System.Drawing.Bitmap]::new([System.Windows.Forms.Screen]::PrimaryScreen.Bounds.Width, [System.Windows.Forms.Screen]::PrimaryScreen.Bounds.Height)
+          $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+          $graphics.CopyFromScreen(0, 0, 0, 0, $bitmap.Size)
+          $bitmap.Save("$env:GITHUB_WORKSPACE\dust3d-${{ github.ref_name }}-windows-2022-1080p-200pct.png")
+          Stop-Process -Name dust3d -Force -ErrorAction SilentlyContinue
+        shell: powershell
+      - name: Upload Windows 1080p 200% screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: dust3d-${{ github.ref_name }}-windows-2022-1080p-200pct.png
+          path: dust3d-${{ github.ref_name }}-windows-2022-1080p-200pct.png
       - name: Run test models
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
